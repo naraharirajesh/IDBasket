@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+<include layout="@layout/nav_header"></include>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@mipmap/ic_launcher"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        />
+
+    <EditText
+        android:id="@+id/email_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Email Id"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/colorPrimary"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        />
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Password"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/colorPrimary"
+       android:inputType="textPassword"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"
+        android:layout_below="@+id/email_id"
+
+        />
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textStyle="bold"
+        android:background="@drawable/button_background"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
+        />
+    <TextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textStyle="bold"
+        android:text="Forgot Password"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:layout_below="@+id/submitBtn"
+
+        />
+
+    <Button
+        android:id="@+id/signupBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SignUp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textStyle="bold"
+        android:background="@drawable/button_background"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentBottom="true"
+
+        />
+
+</RelativeLayout>
