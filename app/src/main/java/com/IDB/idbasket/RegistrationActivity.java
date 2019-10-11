@@ -120,6 +120,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     SharedPreferences.Editor prefsEditor = preferences.edit();
                     prefsEditor.putBoolean("isMobileLoggedIn", true);
                     prefsEditor.commit();
+                    finish();
                     startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
                 }
 

@@ -23,10 +23,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.IDB.idbasket.R;
+import com.IDB.idbasket.Utils.SaveData;
+import com.IDB.idbasket.model.CreationData;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomeScreen extends Fragment {
@@ -76,6 +80,7 @@ TextView cardThreeShare,cardTwoShare,cardOneShare,app_title;
         });
         return layout;
     }
+
     public static Bitmap getScreenShot(View view) {
         View screenView = view.getRootView();
         screenView.setDrawingCacheEnabled(true);
@@ -87,7 +92,7 @@ TextView cardThreeShare,cardTwoShare,cardOneShare,app_title;
     }
     public static File store(Bitmap bm, String fileName,Context ctx){
           String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() ;
-        File dir = new File(ctx.getFilesDir(),fileName);
+        File dir = new File(dirPath,fileName);
         if(!dir.exists())
             dir.mkdirs();
         File file = new File(ctx.getFilesDir(), fileName);
@@ -102,6 +107,7 @@ TextView cardThreeShare,cardTwoShare,cardOneShare,app_title;
         return dir;
     }
     private void shareImage(Bitmap file){
+
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("image/jpeg");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -109,7 +115,13 @@ TextView cardThreeShare,cardTwoShare,cardOneShare,app_title;
         String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),
                 file, "Title", null);
         Uri imageUri =  Uri.parse(path);
+        List<CreationData> data = new ArrayList<>();
+        CreationData d1 = new CreationData();
+        d1.setImageUri(imageUri.toString());
+        data.add(d1);
+        new SaveData(getActivity()).setList(data);
         share.putExtra(Intent.EXTRA_STREAM, imageUri);
         startActivity(Intent.createChooser(share, "Select"));
     }
+
 }

@@ -53,6 +53,7 @@ public class LoginActicity extends AppCompatActivity {
                 }else if(dm != null && !dm.getPassword().equalsIgnoreCase(password.getText().toString().trim())){
                     Toast.makeText(LoginActicity.this,"Incorrect Username or Password",Toast.LENGTH_SHORT).show();
                 }else{
+                    finish();
                     startActivity(new Intent(LoginActicity.this,MainActivity.class));
                 }
             }
@@ -60,6 +61,7 @@ public class LoginActicity extends AppCompatActivity {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(LoginActicity.this,RegistrationActivity.class));
             }
         });

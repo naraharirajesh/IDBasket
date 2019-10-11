@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/textColor">
+    <ImageView
+        android:id="@+id/row_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/share"
+        android:layout_margin="16dp"
+        android:layout_centerVertical="true"
+
+        />
+    <Button
+        android:id="@+id/share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:textColor="@color/textColor"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:background="@drawable/button_background"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
+
+        />
+
+</RelativeLayout>

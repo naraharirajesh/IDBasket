@@ -22,8 +22,10 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 Boolean isUserLoggedIn = PreferenceManager.getDefaultSharedPreferences(SplashScreen.this).getBoolean("isMobileLoggedIn",false);
                 if(isUserLoggedIn){
+                    finish();
                     startActivity(new Intent(SplashScreen.this,MainActivity.class));
                 }else{
+                    finish();
                     startActivity(new Intent(SplashScreen.this,LoginActicity.class));
                 }
             }

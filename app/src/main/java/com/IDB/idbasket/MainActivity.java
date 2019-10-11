@@ -1,8 +1,16 @@
 package com.IDB.idbasket;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -26,10 +34,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.IDB.idbasket.Utils.SaveData;
 import com.IDB.idbasket.fragmentClasses.HomeScreen;
+import com.IDB.idbasket.fragmentClasses.InviteFragment;
 import com.IDB.idbasket.fragmentClasses.MyCreations;
+import com.IDB.idbasket.fragmentClasses.ProfileSettings;
 import com.IDB.idbasket.model.MenuItemModel;
 import com.IDB.idbasket.model.RegDataModel;
 import com.karumi.dexter.Dexter;
@@ -84,6 +95,7 @@ public class MainActivity extends AppCompatActivity{
 
         getRWPermissionListener();
     }
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
@@ -91,6 +103,21 @@ public class MainActivity extends AppCompatActivity{
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if (doubleBackToExitPressedOnce) {
+//                super.onBackPressed()
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+
+                }
+            },2000);
+//            Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
             super.onBackPressed();
         }
     }
@@ -193,15 +220,51 @@ public class MainActivity extends AppCompatActivity{
        }else if(text.trim().equalsIgnoreCase("My Cards")){
            fragment = new HomeScreen();
        }else if(text.trim().equalsIgnoreCase("Invite")){
-           fragment = new HomeScreen();
+           fragment = new InviteFragment();
+      /*     try {
+               Intent i = new Intent(Intent.ACTION_SEND);
+               i.setType("text/plain");
+               i.putExtra(Intent.EXTRA_SUBJECT, "My app name");
+               String strShareMessage = "\nLet me recommend you this application\n\n";
+               strShareMessage = strShareMessage + "https://play.google.com/store/apps/details?id=" + getPackageName();
+//               Uri screenshotUri = Uri.parse(getResources().getDrawable(R.mipmap.ic_launcher));
+               i.setType("image/png");
+//               i.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+               i.putExtra(Intent.EXTRA_TEXT, strShareMessage);
+               startActivity(Intent.createChooser(i, "Share via"));
+           } catch(Exception e) {
+               //e.toString();
+           }*/
        }else if(text.trim().equalsIgnoreCase("Profile Settings")){
-           fragment = new HomeScreen();
+           fragment = new ProfileSettings();
        }else if(text.trim().equalsIgnoreCase("Logout")) {
+           new AlertDialog.Builder(this)
+                   .setTitle("Alert")
+                   .setMessage("Do you really want to whatever?")
+                   .setIcon(android.R.drawable.ic_dialog_alert)
+                   .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
+                       public void onClick(DialogInterface dialog, int whichButton) {
+                           Toast.makeText(MainActivity.this, "Yaay", Toast.LENGTH_SHORT).show();
+                           dialog.dismiss();
+                           SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                           SharedPreferences.Editor editor = preferences.edit();
+                           editor.clear();
+                           editor.commit();
+                           finish();
+                       }})
+                   .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which) {
+                           dialog.dismiss();
+                       }
+                   }).show();
        }
-       FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-       ft.replace(R.id.container_layout,fragment);
-       ft.commit();
+       if(fragment != null) {
+           FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+           ft.replace(R.id.container_layout, fragment);
+           ft.commit();
+       }
     }
     public void createMenuData(){
        menuListData = new ArrayList<>();
