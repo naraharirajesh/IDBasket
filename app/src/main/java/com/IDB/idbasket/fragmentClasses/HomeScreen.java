@@ -18,13 +18,16 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.IDB.idbasket.MainActivity;
 import com.IDB.idbasket.R;
 import com.IDB.idbasket.Utils.SaveData;
 import com.IDB.idbasket.model.CreationData;
+import com.IDB.idbasket.model.RegDataModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -37,7 +40,8 @@ public class HomeScreen extends Fragment {
 CardView cv3;
 RelativeLayout cardOne,cardTwo,cardThree;
 TextView cardThreeShare,cardTwoShare,cardOneShare,app_title;
-
+EditText cardOneName,cardOneDesignation,cardOneWebsite,cardOneEmialId,cardOnePhoneNo,cardOneAddress,cardTwoName,cardTwoDesignation,cardTwoWebsite,cardTwoEmialId,cardTwoPhoneNo,cardTwoAddress,cardThreeName,cardThreeDesignation,cardThreeAddress,cardThreeWebsite,cardThreePhoneNo;
+    RegDataModel mainData = null;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +55,53 @@ TextView cardThreeShare,cardTwoShare,cardOneShare,app_title;
         cardOneShare = layout.findViewById(R.id.cardOneShare);
         app_title = getActivity().findViewById(R.id.app_title);
         app_title.setText("Create Card");
+        mainData  = new RegDataModel();
+        mainData = new SaveData(getActivity()).getMainData();
+        cardOneName = layout.findViewById(R.id.cardOneName);
+        cardOneDesignation = layout.findViewById(R.id.cardOneDesignation);
+        cardOneWebsite = layout.findViewById(R.id.cardOneWebsite);
+        cardOneEmialId = layout.findViewById(R.id.cardOneEmialId);
+        cardOnePhoneNo = layout.findViewById(R.id.cardOnePhoneNo);
+        cardOneAddress = layout.findViewById(R.id.cardOneAddress);
+        cardTwoName = layout.findViewById(R.id.cardTwoName);
+        cardTwoDesignation = layout.findViewById(R.id.cardTwoDesignation);
+        cardTwoWebsite = layout.findViewById(R.id.cardTwoWebsite);
+        cardTwoEmialId = layout.findViewById(R.id.cardTwoEmialId);
+        cardTwoPhoneNo = layout.findViewById(R.id.cardTwoPhoneNo);
+        cardTwoAddress = layout.findViewById(R.id.cardTwoAddress);
+        cardThreeName = layout.findViewById(R.id.cardThreeName);
+        cardThreeDesignation = layout.findViewById(R.id.cardThreeDesignation);
+        cardThreeAddress = layout.findViewById(R.id.cardThreeAddress);
+        cardThreeWebsite = layout.findViewById(R.id.cardThreeWebsite);
+        cardThreePhoneNo = layout.findViewById(R.id.cardThreePhoneNo);
+        if(mainData != null){
+            if(mainData.getTitleOnBusinessCard() != null){
+                cardOneName.setText(""+mainData.getTitleOnBusinessCard() );
+                cardTwoName.setText(""+mainData.getTitleOnBusinessCard());
+                cardThreeName.setText(""+mainData.getTitleOnBusinessCard());
+            }else {
+                cardOneName.setText(""+mainData.getFirstName() +" "+mainData.getLastName() );
+                cardTwoName.setText(""+mainData.getFirstName() +" "+mainData.getLastName());
+                cardThreeName.setText(""+mainData.getFirstName() +" "+mainData.getLastName());
+            }
+
+            cardOneDesignation.setText(""+mainData.getDesignation());
+            cardOneWebsite.setText(""+mainData.getWebsit());
+            cardOneEmialId.setText(""+mainData.getEmailId());
+            cardOnePhoneNo.setText(""+mainData.getPhoneNumber());
+            cardOneAddress.setText(""+mainData.getAddress());
+
+            cardTwoDesignation.setText(""+mainData.getDesignation());
+            cardTwoWebsite.setText(""+mainData.getWebsit());
+            cardTwoEmialId.setText(""+mainData.getEmailId());
+            cardTwoPhoneNo.setText(""+mainData.getPhoneNumber());
+            cardTwoAddress.setText(""+mainData.getAddress());
+
+            cardThreeDesignation.setText(""+mainData.getDesignation());
+            cardThreeAddress.setText(""+mainData.getAddress());
+            cardThreeWebsite.setText(""+mainData.getWebsit());
+            cardThreePhoneNo.setText(""+mainData.getPhoneNumber());
+        }
         cardThreeShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
